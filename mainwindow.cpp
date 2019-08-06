@@ -28,11 +28,12 @@ void MainWindow::paintEvent(QPaintEvent *)  //рисование
     QPainter paint(this);
     paint.setPen(QPen(Qt::black, 5));
 
-    for(int i = 1; i<=2; i++)
-        paint.drawLine(10, sizeCell*i, sizeCell*3, sizeCell*i);
+    for(int i = 1; i<=2; i++)                                       //поле игры
+        paint.drawLine(10, sizeCell*i, sizeCell*3, sizeCell*i);     //
+                                                                    //
+    for(int i = 1; i<=2; i++)                                       //
+        paint.drawLine(sizeCell*i, 10, sizeCell*i, sizeCell*3);     //
 
-    for(int i = 1; i<=2; i++)
-        paint.drawLine(sizeCell*i, 10, sizeCell*i, sizeCell*3);
 
     for(int i = 0; i < 3; i++)
     {
@@ -59,20 +60,20 @@ void MainWindow::mousePressEvent(QMouseEvent* pe)
     dumpEvent(pe);
 }
 
-void MainWindow::dumpEvent(QMouseEvent* pe)
+void MainWindow::dumpEvent(QMouseEvent* pe)             //Start
 {
-    if (player)  ui->label->setText("player 1");
+    if (player)  ui->label->setText("player 1");        //
     else ui->label->setText("player 2");
 
-    int x = pe->x()/sizeCell;               //получение координат мышки
+    int x = pe->x()/sizeCell;                           //получение координат мышки
     int y = pe->y()/sizeCell;
-    if (x < 3 && y <3 && statusCell[x][y] == 2)
+    if (x < 3 && y <3 && statusCell[x][y] == 2)         //было ли нажатие на свободной клетке
     {
         statusCell[x][y] = player;
-        player =!player;                    //смена хода
+        player =!player;                                //смена хода
         NumberMoves++;
 
-        if(NumberMoves == 9)    //заполнено ли поле
+        if(NumberMoves == 9)                            //заполнено ли поле
         {
             QMessageBox::information(NULL,QObject::tr("End"),tr("draw"));
             NewGame();
@@ -84,7 +85,7 @@ void MainWindow::dumpEvent(QMouseEvent* pe)
 
 void MainWindow::ScanCell()         //проверка на окончание игры
 {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)     //гориз/вериткальные лиинии
     {
         if(statusCell[i][0] != 2 && statusCell[i][0] ==statusCell[i][1]&& statusCell[i][1]==statusCell[i][2])
         {
@@ -98,6 +99,7 @@ void MainWindow::ScanCell()         //проверка на окончание �
         }
     }
 
+        //проверка по вертикали
     if(statusCell[0][0] != 2 && statusCell[0][0] ==statusCell[1][1]&& statusCell[1][1]==statusCell[2][2])
     {
         End(statusCell[0][0]);
@@ -126,7 +128,7 @@ void MainWindow::NewGame()
     SetArr(*statusCell, 2);
     ui->label->setText("player 1");
 }
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_clicked()        //рестарт
 {
     NewGame();
     MainWindow::update();

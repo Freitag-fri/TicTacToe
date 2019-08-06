@@ -34,7 +34,7 @@ private:
     Ui::MainWindow *ui;
 
     int sizeCell = 150;                 //размер клетки
-    int statusCell[3][3];               //0- кружки, 1 - крестик, 2-пусто
+    int statusCell[3][3];               //состояние клетки  //0- кружки, 1 - крестики, 2-пусто
     bool player = false;                //право хода
     int  NumberMoves = 0;               //количество ходов
 
