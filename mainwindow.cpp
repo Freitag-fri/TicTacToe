@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::SetArr(int *arr, int number)       //инициализация массива
-{
+{                                                   //0- кружки, 1 - крестики, 2-пусто
     for(int i =0; i < 9; i++)
     {
         arr[i] = number;
@@ -28,18 +28,18 @@ void MainWindow::paintEvent(QPaintEvent *)  //рисование
     QPainter paint(this);
     paint.setPen(QPen(Qt::black, 5));
 
-    for(int i = 1; i<=2; i++)                                       //поле игры
-        paint.drawLine(10, sizeCell*i, sizeCell*3, sizeCell*i);     //
-                                                                    //
-    for(int i = 1; i<=2; i++)                                       //
-        paint.drawLine(sizeCell*i, 10, sizeCell*i, sizeCell*3);     //
+    for(int i = 1; i<=2; i++)                                   //поле игры
+    {
+        paint.drawLine(10, sizeCell*i, sizeCell*3, sizeCell*i);
+        paint.drawLine(sizeCell*i, 10, sizeCell*i, sizeCell*3);
+    }
 
 
     for(int i = 0; i < 3; i++)
     {
         for(int c = 0; c <3; c++)
         {
-            if (statusCell[i][c] == 0)      //нолик
+            if (statusCell[i][c] == 0)          //нолик
             {
                 paint.setPen(QPen(Qt::blue, 8));
                 paint.drawEllipse(sizeCell*i +10, sizeCell*c +10,sizeCell-20,sizeCell-20)  ;
